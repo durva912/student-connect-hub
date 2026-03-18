@@ -1,96 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 210 60% 85%;
+    --foreground: 215 25% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 225 95% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 215 40% 94%;
+    --secondary-foreground: 215 25% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 215 30% 92%;
+    --muted-foreground: 215 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 215 60% 92%;
+    --accent-foreground: 225 95% 50%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 0 0% 100% / 0.2;
+    --input: 0 0% 100% / 0.5;
+    --ring: 225 95% 50%;
 
-    --radius: 0.5rem;
+    --radius: 12px;
 
-    --sidebar-background: 0 0% 98%;
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-bg-strong: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --gradient-bg: linear-gradient(135deg, #7bc1ed, #bbd1f8);
+    --color-primary: #0c45f1;
+    --color-primary-hover: #2b80ff;
+    --color-success: #10b981;
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 0 0% 100% / 0.15;
+    --sidebar-foreground: 215 25% 15%;
+    --sidebar-primary: 225 95% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 215 60% 92%;
+    --sidebar-accent-foreground: 225 95% 50%;
+    --sidebar-border: 0 0% 100% / 0.2;
+    --sidebar-ring: 225 95% 50%;
   }
 }
 
@@ -100,6 +63,145 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    font-family: 'Poppins', Arial, sans-serif;
+    background: var(--gradient-bg);
+    background-attachment: fixed;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    color: hsl(var(--foreground));
   }
+}
+
+@layer components {
+  .glass-card {
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--glass-shadow);
+  }
+
+  .glass-card-light {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--glass-shadow);
+  }
+
+  .btn-primary {
+    background: var(--color-primary);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    border: none;
+    font-family: 'Poppins', Arial, sans-serif;
+    font-size: 0.875rem;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(12, 69, 241, 0.3);
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.3);
+    color: hsl(var(--foreground));
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    border: 1px solid var(--glass-border);
+    font-family: 'Poppins', Arial, sans-serif;
+    font-size: 0.875rem;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .glass-input {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 0.75rem;
+    width: 100%;
+    transition: all 0.2s ease;
+    font-family: 'Poppins', Arial, sans-serif;
+    font-size: 0.875rem;
+    outline: none;
+    color: hsl(var(--foreground));
+  }
+
+  .glass-input:focus {
+    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 0 3px rgba(12, 69, 241, 0.1);
+  }
+
+  .glass-input::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .nav-link {
+    @apply flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200;
+  }
+
+  .nav-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--color-primary);
+  }
+
+  .nav-link.active {
+    background: rgba(12, 69, 241, 0.1);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .page-container {
+    @apply p-4 md:p-8 max-w-7xl mx-auto;
+  }
+
+  .section-title {
+    @apply text-xl font-bold tracking-tight mb-4;
+    color: hsl(var(--foreground));
+  }
+
+  .toast-notification {
+    @apply fixed top-4 right-4 z-50 glass-card p-4 flex items-center gap-3 animate-slide-in;
+    max-width: 350px;
+  }
+}
+
+@keyframes slide-in {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out;
 }
