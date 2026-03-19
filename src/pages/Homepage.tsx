@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
-import Sidebar from '../components/Sidebar';
 import { SC, seedData, Post, Blog } from '../lib/store';
 
 export default function HomePage() {
@@ -25,10 +24,7 @@ export default function HomePage() {
   return (
     <Layout>
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-        <div className="hidden md:block md:col-span-3">
-          <Sidebar />
-        </div>
-        <section className="md:col-span-6 space-y-6">
+        <section className="md:col-span-8 space-y-6">
           {/* New Post CTA */}
           <div className="glass-card p-5">
             <div className="flex gap-4 items-center">
@@ -71,7 +67,7 @@ export default function HomePage() {
         </section>
 
         {/* Right panel */}
-        <aside className="md:col-span-3 space-y-6">
+        <aside className="md:col-span-4 space-y-6">
           <div className="glass-card p-6">
             <h3 className="font-bold mb-4 text-sm">Trending Blogs</h3>
             <div className="space-y-3">
