@@ -20,9 +20,9 @@ export default function Navbar({ onToggleSidebar }: NavbarProps) {
       {/* Left: Logo (no border/circle wrapper) */}
       <button
         onClick={onToggleSidebar}
-        className="w-[50px] h-[50px] overflow-hidden shrink-0 cursor-pointer hover:scale-105 transition-transform bg-transparent border-none p-0"
+        className="w-[50px] h-[50px] rounded-full overflow-hidden shrink-0 cursor-pointer hover:scale-105 transition-transform bg-transparent border-none p-0"
       >
-        <img src={logoImg} alt="StudentConnect Logo" className="w-full h-full object-contain" />
+        <img src={logoImg} alt="StudentConnect Logo" className="w-full h-full object-cover rounded-full" />
       </button>
 
       {/* Center: Nav links */}
