@@ -58,7 +58,7 @@ export default function Navbar({ onToggleSidebar }: NavbarProps) {
           <i className="fas fa-search" />
         </Link>
         <Link
-          to="/search"
+          to="/chatroom"
           className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/20 transition text-lg"
           style={{ color: 'var(--color-primary)' }}
           title="Chat"
