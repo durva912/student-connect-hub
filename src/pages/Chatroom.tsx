@@ -102,8 +102,8 @@ export default function Chatroom() {
         <div className="glass-card overflow-hidden" style={{ height: 'calc(100vh - 180px)' }}>
           <div className="flex h-full">
             {/* User List */}
-            <div className={`${selectedUser ? 'hidden md:flex' : 'flex'} flex-col w-full md:w-72 border-r border-white/10`}>
-              <div className="p-3 border-b border-white/10">
+            <div className={`${selectedUser ? 'hidden md:flex' : 'flex'} flex-col w-full md:w-72 border-r border-white/10`} style={{ background: 'rgba(0,0,0,0.15)' }}>
+              <div className="p-3 border-b border-white/10" style={{ background: 'rgba(0,0,0,0.1)' }}>
                 <div className="glass-input flex items-center gap-2 px-3 py-2 text-sm">
                   <i className="fas fa-search opacity-50" />
                   <input
