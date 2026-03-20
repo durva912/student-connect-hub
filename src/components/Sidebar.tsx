@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const menuItems = [
+  { to: '/userviewprofile', label: 'Profile', icon: 'fas fa-user' },
   { to: '/homepage', label: 'Feed', icon: 'fas fa-home' },
   { to: '/all-posts', label: 'All Posts', icon: 'fas fa-stream' },
   { to: '/readblog', label: 'Blogs', icon: 'fas fa-blog' },
