@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { SC, Post, seedData } from '../lib/store';
 
 export default function ViewPostPage() {
   const [params] = useSearchParams();
+  const navigate = useNavigate();
   const id = Number(params.get('id'));
   const [post, setPost] = useState<Post | null>(null);
   const [comment, setComment] = useState('');
@@ -22,6 +23,19 @@ export default function ViewPostPage() {
     setPost(updated);
     const posts = SC.get<Post>('posts').map(p => p.id === post.id ? updated : p);
     SC.set('posts', posts);
+  };
+
+  const deletePost = () => {
+    if (!confirm('Are you sure you want to delete this post?')) return;
+    SC.set('posts', SC.get<Post>('posts').filter(p => p.id !== post.id));
+    navigate('/all-posts');
+  };
+
+  const deleteComment = (index: number) => {
+    if (!confirm('Delete this comment?')) return;
+    const updated = { ...post, comments: post.comments.filter((_, i) => i !== index) };
+    setPost(updated);
+    SC.set('posts', SC.get<Post>('posts').map(p => p.id === post.id ? updated : p));
   };
 
   const addComment = (e: React.FormEvent) => {
@@ -45,9 +59,14 @@ export default function ViewPostPage() {
             <div className="w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm" style={{ background: 'var(--color-primary)', color: 'white' }}>
               {post.author.split(' ').map(n => n[0]).join('')}
             </div>
-            <div>
+            <div className="flex-1">
               <div className="font-semibold">{post.author}</div>
               <div className="text-xs opacity-50">{post.date}</div>
+            </div>
+            <div className="flex gap-2">
+              <button onClick={deletePost} className="text-xs px-3 py-1.5 rounded-lg text-red-500 hover:bg-red-50 transition" title="Delete post">
+                <i className="fas fa-trash" />
+              </button>
             </div>
           </div>
           <p className="leading-relaxed mb-4">{post.content}</p>
@@ -67,7 +86,12 @@ export default function ViewPostPage() {
             <div key={i} className="glass-card-light p-4">
               <div className="flex justify-between mb-1">
                 <span className="font-semibold text-sm">{c.author}</span>
-                <span className="text-xs opacity-50">{c.date}</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs opacity-50">{c.date}</span>
+                  <button onClick={() => deleteComment(i)} className="text-xs text-red-500 hover:opacity-70 transition" title="Delete comment">
+                    <i className="fas fa-trash-alt" />
+                  </button>
+                </div>
               </div>
               <p className="text-sm">{c.text}</p>
             </div>
