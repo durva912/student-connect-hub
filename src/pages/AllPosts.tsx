@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { SC, Post, seedData } from '../lib/store';
 
+const CURRENT_USER = 'Student User';
+
 export default function AllPostsPage() {
   const [posts, setPosts] = useState<Post[]>([]);
 
@@ -40,9 +42,16 @@ export default function AllPostsPage() {
                   <div className="font-semibold text-sm">{post.author}</div>
                   <div className="text-xs opacity-50">{post.date}</div>
                 </div>
-                <button onClick={(e) => deletePost(e, post.id)} className="text-xs text-red-500 hover:opacity-70 transition p-1" title="Delete post">
-                  <i className="fas fa-trash" />
-                </button>
+                {post.author === CURRENT_USER && (
+                  <div className="flex gap-2">
+                    <Link to={`/editpost?id=${post.id}`} onClick={e => e.stopPropagation()} className="text-xs opacity-50 hover:opacity-100 transition p-1" title="Edit post">
+                      <i className="fas fa-edit" />
+                    </Link>
+                    <button onClick={(e) => deletePost(e, post.id)} className="text-xs text-red-500 hover:opacity-70 transition p-1" title="Delete post">
+                      <i className="fas fa-trash" />
+                    </button>
+                  </div>
+                )}
               </div>
               <p className="text-sm mb-3">{post.content.slice(0, 150)}{post.content.length > 150 ? '...' : ''}</p>
               {post.image && <img src={post.image} alt="" className="rounded-lg max-h-40 w-full object-cover mb-3" />}
