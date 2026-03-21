@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { SC, Blog, seedData } from '../lib/store';
 
 export default function ReadSingleBlogPage() {
   const [params] = useSearchParams();
+  const navigate = useNavigate();
   const id = Number(params.get('id'));
   const [blog, setBlog] = useState<Blog | null>(null);
 
@@ -15,6 +16,12 @@ export default function ReadSingleBlogPage() {
   }, [id]);
 
   if (!blog) return <Layout><div className="text-center p-16 opacity-50">Blog not found.</div></Layout>;
+
+  const deleteBlog = () => {
+    if (!confirm('Are you sure you want to delete this blog?')) return;
+    SC.set('blogs', SC.get<Blog>('blogs').filter(b => b.id !== blog.id));
+    navigate('/readblog');
+  };
 
   return (
     <Layout>
@@ -29,6 +36,7 @@ export default function ReadSingleBlogPage() {
           <div className="prose prose-sm max-w-none leading-relaxed whitespace-pre-line">{blog.content}</div>
           <div className="mt-8 pt-6 border-t border-white/10 flex gap-3">
             <Link to={`/edit_blog?id=${blog.id}`} className="btn-secondary text-sm"><i className="fas fa-edit" /> Edit</Link>
+            <button onClick={deleteBlog} className="btn-secondary text-sm text-red-500"><i className="fas fa-trash" /> Delete</button>
             <Link to="/readblog" className="btn-secondary text-sm"><i className="fas fa-list" /> All Blogs</Link>
           </div>
         </article>
