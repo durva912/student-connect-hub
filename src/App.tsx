@@ -13,6 +13,7 @@ import PublicViewProfile from "./pages/PublicViewProfile";
 import ReadBlog from "./pages/ReadBlog";
 import WriteBlog from "./pages/WriteBlog";
 import EditBlog from "./pages/EditBlog";
+import EditPost from "./pages/EditPost";
 import ReadSingleBlog from "./pages/ReadSingleBlog";
 import Search from "./pages/Search";
 import Filter from "./pages/Filter";
