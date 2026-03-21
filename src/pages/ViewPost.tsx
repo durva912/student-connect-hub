@@ -3,6 +3,8 @@ import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { SC, Post, seedData } from '../lib/store';
 
+const CURRENT_USER = 'Student User';
+
 export default function ViewPostPage() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
@@ -18,6 +20,8 @@ export default function ViewPostPage() {
 
   if (!post) return <Layout><div className="text-center p-16 opacity-50">Post not found.</div></Layout>;
 
+  const isOwner = post.author === CURRENT_USER;
+
   const toggleLike = () => {
     const updated = { ...post, likes: post.likedByUser ? post.likes - 1 : post.likes + 1, likedByUser: !post.likedByUser };
     setPost(updated);
@@ -32,6 +36,8 @@ export default function ViewPostPage() {
   };
 
   const deleteComment = (index: number) => {
+    const c = post.comments[index];
+    if (c.author !== CURRENT_USER) return;
     if (!confirm('Delete this comment?')) return;
     const updated = { ...post, comments: post.comments.filter((_, i) => i !== index) };
     setPost(updated);
@@ -41,7 +47,7 @@ export default function ViewPostPage() {
   const addComment = (e: React.FormEvent) => {
     e.preventDefault();
     if (!comment.trim()) return;
-    const newComment = { author: 'Student User', text: comment.trim(), date: new Date().toLocaleDateString('en-CA') };
+    const newComment = { author: CURRENT_USER, text: comment.trim(), date: new Date().toLocaleDateString('en-CA') };
     const updated = { ...post, comments: [...post.comments, newComment] };
     setPost(updated);
     SC.set('posts', SC.get<Post>('posts').map(p => p.id === post.id ? updated : p));
@@ -63,11 +69,16 @@ export default function ViewPostPage() {
               <div className="font-semibold">{post.author}</div>
               <div className="text-xs opacity-50">{post.date}</div>
             </div>
-            <div className="flex gap-2">
-              <button onClick={deletePost} className="text-xs px-3 py-1.5 rounded-lg text-red-500 hover:bg-red-50 transition" title="Delete post">
-                <i className="fas fa-trash" />
-              </button>
-            </div>
+            {isOwner && (
+              <div className="flex gap-2">
+                <Link to={`/editpost?id=${post.id}`} className="text-xs px-3 py-1.5 rounded-lg hover:bg-accent transition" title="Edit post">
+                  <i className="fas fa-edit" />
+                </Link>
+                <button onClick={deletePost} className="text-xs px-3 py-1.5 rounded-lg text-red-500 hover:bg-red-50 transition" title="Delete post">
+                  <i className="fas fa-trash" />
+                </button>
+              </div>
+            )}
           </div>
           <p className="leading-relaxed mb-4">{post.content}</p>
           {post.image && <img src={post.image} alt="" className="rounded-lg w-full mb-4" />}
@@ -88,9 +99,11 @@ export default function ViewPostPage() {
                 <span className="font-semibold text-sm">{c.author}</span>
                 <div className="flex items-center gap-2">
                   <span className="text-xs opacity-50">{c.date}</span>
-                  <button onClick={() => deleteComment(i)} className="text-xs text-red-500 hover:opacity-70 transition" title="Delete comment">
-                    <i className="fas fa-trash-alt" />
-                  </button>
+                  {c.author === CURRENT_USER && (
+                    <button onClick={() => deleteComment(i)} className="text-xs text-red-500 hover:opacity-70 transition" title="Delete comment">
+                      <i className="fas fa-trash-alt" />
+                    </button>
+                  )}
                 </div>
               </div>
               <p className="text-sm">{c.text}</p>

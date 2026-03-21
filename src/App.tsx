@@ -13,6 +13,7 @@ import PublicViewProfile from "./pages/PublicViewProfile";
 import ReadBlog from "./pages/ReadBlog";
 import WriteBlog from "./pages/WriteBlog";
 import EditBlog from "./pages/EditBlog";
+import EditPost from "./pages/EditPost";
 import ReadSingleBlog from "./pages/ReadSingleBlog";
 import Search from "./pages/Search";
 import Filter from "./pages/Filter";
@@ -51,6 +52,7 @@ const App = () => (
           <Route path="/createpost" element={<CreatePost />} />
           <Route path="/all-posts" element={<AllPosts />} />
           <Route path="/viewpost" element={<ViewPost />} />
+          <Route path="/editpost" element={<EditPost />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/faqs" element={<Faqs />} />
