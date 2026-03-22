@@ -23,6 +23,7 @@ import ViewPost from "./pages/ViewPost";
 import Settings from "./pages/Settings";
 import AboutUs from "./pages/AboutUs";
 import Faqs from "./pages/Faqs";
+import Install from "./pages/Install";
 
 import Chatroom from "./pages/Chatroom";
 import NotFound from "./pages/NotFound";
@@ -56,6 +57,7 @@ const App = () => (
           <Route path="/settings" element={<Settings />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/faqs" element={<Faqs />} />
+          <Route path="/install" element={<Install />} />
           <Route path="/chatroom" element={<Chatroom />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
